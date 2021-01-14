@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button } from 'antd'
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,84 +6,54 @@ import {
   Link
 } from 'react-router-dom'
 
-import './App.css';
+import {
+  Layout,
+  Menu
+} from 'antd'
 
-// This site has 3 pages, all of which are rendered
-// dynamically in the browser (not server rendered).
-//
-// Although the page does not ever refresh, notice how
-// React Router keeps the URL up to date as you navigate
-// through the site. This preserves the browser history,
-// making sure things like the back button and bookmarks
-// work properly.
+import Home from './pages/home'
+import About from './pages/about'
+
+import './App.css'
+
+const { Header, Footer, Content } = Layout
 
 export default function App () {
   return (
     <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-        </ul>
+      <Layout className="site-layout">
 
-        <hr/>
+        <Header className="site-header site-layout__block">
+          <Menu
+            mode="horizontal"
+            theme="dark"
+            defaultSelectedKeys={(() => {
+              return [window.location.pathname]
+            })()}
+          >
+            <Menu.Item key="/">
+              <Link to="/">主页</Link>
+            </Menu.Item>
+            <Menu.Item key="/about/">
+              <Link to="/about/">关于</Link>
+            </Menu.Item>
+          </Menu>
+        </Header>
 
-        {/*
-          A <Switch> looks through all its children <Route>
-          elements and renders the first one whose path
-          matches the current URL. Use a <Switch> any time
-          you have multiple routes, but you want only one
-          of them to render at a time
-        */}
-        <Switch>
-          <Route exact path="/">
-            <Home/>
-          </Route>
-          <Route path="/about">
-            <About/>
-          </Route>
-          <Route path="/dashboard">
-            <Dashboard/>
-          </Route>
-        </Switch>
-      </div>
+        <Content className="site-content site-layout__block">
+          <Switch>
+            <Route exact path="/">
+              <Home/>
+            </Route>
+            <Route path="/about">
+              <About/>
+            </Route>
+          </Switch>
+        </Content>
+
+        <Footer  className="site-footer site-layout__block">Footer</Footer>
+
+      </Layout>
     </Router>
-  )
-}
-
-// You can think of these components as "pages"
-// in your app.
-
-function Home () {
-  return (
-    <div>
-      <h2>Home</h2>
-      <div>
-        <Button type="primary">Button</Button>
-      </div>
-    </div>
-  )
-}
-
-function About () {
-  return (
-    <div>
-      <h2>About</h2>
-    </div>
-  )
-}
-
-function Dashboard () {
-  return (
-    <div>
-      <h2>Dashboard</h2>
-    </div>
   )
 }

@@ -5,9 +5,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  // Use React StrictMode with Ant-Design will cause a waring:
+  // Warning: findDOMNode is deprecated in StrictMode.
+  // See issue: https://github.com/ant-design/ant-design/issues/22493
+
+  // <React.StrictMode>
+    <App />,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 
